@@ -1,8 +1,8 @@
 export const calculateAspectRatioFit = (
   srcWidth,
   srcHeight,
-  maxWidth = 2000,
-  maxHeight = 1000
+  maxWidth ,
+  maxHeight
 ) => {
   let ratio = 1;
 
@@ -13,12 +13,14 @@ export const calculateAspectRatioFit = (
   return { width: srcWidth * ratio, height: srcHeight * ratio };
 };
 
-export const resizeImage = (image, type, cb) => {
+export const resizeImage = (image, type, cb, mw, mh) => {
   const newImage = new Image();
   newImage.onload = () => {
     const { width, height } = calculateAspectRatioFit(
       newImage.width,
-      newImage.height
+      newImage.height,
+      mw,
+      mh
     );
     const canvas = document.createElement('canvas');
     canvas.width = width;

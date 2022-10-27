@@ -258,6 +258,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -619,7 +621,7 @@ __webpack_require__.r(__webpack_exports__);
     PicturePickerFile: _PicturePickerFile__WEBPACK_IMPORTED_MODULE_1__["default"],
     PictureCropper: _PictureCropper__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
-  props: ['value', 'isAvatar', 'aspectRatio'],
+  props: ['value', 'isAvatar', 'aspectRatio', 'maxWidth', 'maxHeight'],
   data: function data() {
     return {
       hash: Math.random().toString(36).substring(7),
@@ -698,7 +700,7 @@ __webpack_require__.r(__webpack_exports__);
             _this.$emit('setHeight', height);
 
             _this.$emit('fileChanged', file);
-          });
+          }, _this.maxWidth || 2000, _this.maxHeight || 1000);
         };
 
         reader.readAsDataURL(file);
@@ -36965,7 +36967,9 @@ var render = function() {
                   ref: "picturePicker",
                   attrs: {
                     "is-avatar": _vm.field.isAvatar,
-                    "aspect-ratio": _vm.field.aspectRatio
+                    "aspect-ratio": _vm.field.aspectRatio,
+                    "max-height": _vm.field.maxHeight,
+                    "max-width": _vm.field.maxWidth
                   },
                   on: {
                     finished: function($event) {
@@ -49925,9 +49929,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "calculateAspectRatioFit", function() { return calculateAspectRatioFit; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "resizeImage", function() { return resizeImage; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UrlToBase64", function() { return UrlToBase64; });
-var calculateAspectRatioFit = function calculateAspectRatioFit(srcWidth, srcHeight) {
-  var maxWidth = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 2000;
-  var maxHeight = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 1000;
+var calculateAspectRatioFit = function calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight) {
   var ratio = 1;
 
   if (srcWidth > maxWidth || srcHeight > maxHeight) {
@@ -49939,11 +49941,11 @@ var calculateAspectRatioFit = function calculateAspectRatioFit(srcWidth, srcHeig
     height: srcHeight * ratio
   };
 };
-var resizeImage = function resizeImage(image, type, cb) {
+var resizeImage = function resizeImage(image, type, cb, mw, mh) {
   var newImage = new Image();
 
   newImage.onload = function () {
-    var _calculateAspectRatio = calculateAspectRatioFit(newImage.width, newImage.height),
+    var _calculateAspectRatio = calculateAspectRatioFit(newImage.width, newImage.height, mw, mh),
         width = _calculateAspectRatio.width,
         height = _calculateAspectRatio.height;
 

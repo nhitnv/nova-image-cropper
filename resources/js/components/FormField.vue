@@ -9,6 +9,8 @@
             v-model="value"
             :is-avatar="field.isAvatar"
             :aspect-ratio="field.aspectRatio"
+            :max-height="field.maxHeight"
+            :max-width="field.maxWidth"
             @finished="editingImage = false"
             @fileChanged="setFile"
           />
