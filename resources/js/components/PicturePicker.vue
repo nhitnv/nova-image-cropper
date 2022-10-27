@@ -54,7 +54,7 @@ export default {
 
   components: { PicturePickerFile, PictureCropper },
 
-  props: ['value', 'isAvatar', 'aspectRatio', 'maxWidth', 'maxHeight'],
+  props: ['value', 'isAvatar', 'aspectRatio'],
 
   data() {
     return {
@@ -132,9 +132,7 @@ export default {
               this.$emit('setWidth', width)
               this.$emit('setHeight', height)
               this.$emit('fileChanged', file)
-            },
-            this.maxWidth || 2000,
-            this.maxHeight || 1000,
+            }
           )
         }
 
